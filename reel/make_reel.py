@@ -90,8 +90,11 @@ def ui_sheet(htmls, plan, path):
             pg.wait_for_timeout(150); pg.evaluate("seek(0)"); pg.evaluate(f"seek({(dur - .1) * k})")
             png = work / f"{n}.png"; pg.screenshot(path=str(png))
             im = Image.open(png).convert("RGBA"); o = Image.new("RGBA", im.size, (0, 0, 0, 0)); d = ImageDraw.Draw(o)
-            d.rectangle((0, 0, 1080, 220), fill=(255, 0, 80, 70)); d.rectangle((950, 1050, 1080, 1650), fill=(255, 0, 80, 70))
-            d.rectangle((0, 1560, 1080, 1920), fill=(255, 0, 80, 70))
+            P = (255, 0, 80, 70)
+            d.rectangle((0, 0, 1080, 230), fill=P)          # 상단: 뒤로가기·카메라
+            d.rectangle((0, 0, 50, 1920), fill=P); d.rectangle((1030, 0, 1080, 1920), fill=P)  # 긴 화면에서 잘리는 양옆
+            d.rectangle((920, 1110, 1030, 1680), fill=P)    # 오른쪽 좋아요·댓글·공유 버튼
+            d.rectangle((0, 1560, 1080, 1920), fill=P)      # 하단: 아이디·캡션
             ims.append(Image.alpha_composite(im, o).convert("RGB"))
         b.close()
     w, h = 360, 640; sheet = Image.new("RGB", (w * 3, h * ((len(ims) + 2) // 3)), "white")

@@ -1,7 +1,8 @@
 """밤사이 릴스 공통 라이브러리 — 스타일(CSS), 말풍선·내레이션·효과음 글자 등 부품.
 
 장면 파일(posts/<날짜>/reel/scenes.py)에서 `from lib import *` 로 가져다 쓴다.
-좌표계는 1080x1920 기준이며, page()가 내용 전체를 인스타 안전 영역(가로 60~919, 세로 240~1520)으로 줄여 배치한다."""
+좌표계는 1080x1920 기준이며, page()가 내용 전체를 가운데 정렬로 줄여(0.82배) 인스타 안전 영역(가로 137~943, 세로 250~1450) 안에 배치한다.
+세로로 긴 휴대폰은 영상 양옆을 약 50px씩 잘라 보여 주므로 좌우 여백을 같게 둔다."""
 import pathlib, random
 from chars import mascot, chip, mini, p_card, p_paper, p_mag, p_tablet, L
 
@@ -13,7 +14,7 @@ CSS = f"""
 html,body{{margin:0;padding:0}}
 body{{width:1080px;height:1920px;overflow:hidden;word-break:keep-all;font-family:'Jua','Noto Sans CJK KR',sans-serif;color:{L};-webkit-font-smoothing:antialiased}}
 .stage{{position:relative;width:1080px;height:1920px;overflow:hidden}}
-.safe{{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0;transform:translate(21.5px,136.75px) scale(.875)}}
+.safe{{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0;transform:translate(101.3px,153.2px) scale(.82)}}
 .abs{{position:absolute}}
 .head{{position:absolute;left:44px;right:54px;top:118px;display:flex;justify-content:space-between;align-items:center;font-size:34px}}
 .head .dot{{display:inline-block;width:16px;height:16px;border-radius:8px;background:#FFB27F;margin-right:12px;vertical-align:middle}}
