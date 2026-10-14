@@ -1,0 +1,11 @@
+/* 밤사이 카드 공통 스타일 — 폰트는 로컬 설치 글꼴만 사용(외부 요청 없음) */
+:root{
+  --sans:'Noto Sans CJK KR','Noto Sans KR',sans-serif;
+  --num:'Noto Sans CJK KR','Noto Sans KR',sans-serif;
+  --night:#0B1220; --card:#18233A; --line:#33405A;
+  --dawn:#FF8A3D; --ivory:#F3EEE6; --muted:#A7B0C0; --soft:#C9CFDA;
+  --up:#FF5A5F; --down:#5AA9FF;      /* 어두운 바탕용 상승/하락 */
+  --up-light:#C81E1E; --down-light:#1D4ED8; /* 밝은 바탕(5장)용 */
+}
+html,body{margin:0;padding:0;background:var(--night)}
+body{width:1080px;height:1080px;overflow:hidden;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
