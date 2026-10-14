@@ -182,4 +182,5 @@ posts/YYYY-MM-DD/          ← 발행일(한국 날짜)
 #미국증시 #주식공부 #코스피 #(그날 주제) #밤사이
 ```
 - 500자 이내, 해시태그 5개. 숫자는 카드와 같은 것만.
-- 영상은 3MB 안팎(5Mbps 이하). 커밋은 카드와 같은 `post: YYYY-MM-DD` 하나로 한다.
+- 영상은 3MB 안팎(5Mbps 이하).
+- 커밋 순서: 카드를 먼저 `post: YYYY-MM-DD`로 푸시한 뒤(캐러셀 확보), 릴스(reel/scenes.py, reel.mp4, reel_caption.txt)를 `reel: YYYY-MM-DD`로 따로 푸시한다. 07:50(KST)까지 릴스를 못 끝내면 릴스는 푸시하지 않는다.
