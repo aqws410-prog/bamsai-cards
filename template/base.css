@@ -8,4 +8,4 @@
   --up-light:#C81E1E; --down-light:#1D4ED8; /* 밝은 바탕(5장)용 */
 }
 html,body{margin:0;padding:0;background:var(--night)}
-body{width:1080px;height:1080px;overflow:hidden;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+body{width:1080px;height:1350px;overflow:hidden;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
