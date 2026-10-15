@@ -3,7 +3,7 @@
 
 사용법:
   python3 reel/make_reel.py posts/2026-10-15                # posts/2026-10-15/reel/scenes.py → posts/2026-10-15/reel.mp4
-  python3 reel/make_reel.py posts/2026-10-15 --sheet /tmp/reel_sheet.jpg   # + 인스타 UI를 얹은 검수용 미리보기
+  python3 reel/make_reel.py posts/2026-10-15 --sheet /tmp/reel_sheet.jpg --stills /tmp/reel_stills.jpg   # + 검수용(UI 표시) / 보고용(깨끗한) 시트
   python3 reel/make_reel.py reel/formats/news --out /tmp/news.mp4          # 기준 예시 다시 만들기
 
 scenes.py 가 정의할 것: S[n] = (아무 숫자, page(...)), PLAN[n] = (화면 길이 초, 재생 배속), CUES = [(장면, 시각, 효과음, 볼륨), ...]
@@ -102,13 +102,37 @@ def ui_sheet(htmls, plan, path):
     sheet.save(path, quality=88); shutil.rmtree(work, ignore_errors=True)
     print("검수 미리보기:", path, "(분홍 영역 = 인스타 UI가 덮는 곳. 글자·캐릭터가 들어가면 안 됨)")
 
+def stills_sheet(htmls, plan, path):
+    """장면별 마지막 화면을 UI 표시 없이 깨끗하게 모은 시트(사용자 보고용, 장면 번호 표기)."""
+    from playwright.sync_api import sync_playwright
+    from PIL import Image, ImageDraw, ImageFont
+    work = pathlib.Path(tempfile.mkdtemp()); ims = []
+    with sync_playwright() as p:
+        b = p.chromium.launch(); pg = b.new_page(viewport={"width": 1080, "height": 1920})
+        for n, (html, (dur, k)) in enumerate(zip(htmls, plan), 1):
+            hf = work / f"{n}.html"; hf.write_text(html, encoding="utf-8")
+            pg.goto(hf.as_uri()); pg.wait_for_load_state("load"); pg.evaluate("document.fonts.ready")
+            pg.wait_for_timeout(150); pg.evaluate("seek(0)"); pg.evaluate(f"seek({(dur - .1) * k})")
+            png = work / f"{n}.png"; pg.screenshot(path=str(png)); ims.append(Image.open(png).convert("RGB"))
+        b.close()
+    F = ImageFont.truetype(str(HERE / "fonts/Jua-Regular.ttf"), 34)
+    w, h, pad = 540, 960, 56; cols = 3; rows = (len(ims) + cols - 1) // cols
+    sheet = Image.new("RGB", (cols * w + (cols + 1) * 16, rows * (h + pad) + 16), "#FFFBF4"); d = ImageDraw.Draw(sheet)
+    for i, im in enumerate(ims):
+        x = 16 + (i % cols) * (w + 16); y = 16 + (i // cols) * (h + pad)
+        d.text((x + 4, y + 6), f"장면 {i+1}", font=F, fill="#4A3838"); sheet.paste(im.resize((w, h)), (x, y + pad - 6))
+    sheet.save(path, quality=90); shutil.rmtree(work, ignore_errors=True)
+    print("정지 화면 시트:", path)
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("folder"); ap.add_argument("--out"); ap.add_argument("--sheet")
     ap.add_argument("--sheet-only", action="store_true")
+    ap.add_argument("--stills", help="장면별 깨끗한 정지 화면 시트 경로(사용자 보고용)")
     a = ap.parse_args()
     folder = pathlib.Path(a.folder).resolve()
     htmls, plan, cues = load_scenes(folder)
     if a.sheet: ui_sheet(htmls, plan, a.sheet)
+    if a.stills: stills_sheet(htmls, plan, a.stills)
     if a.sheet_only: return
     out = pathlib.Path(a.out).resolve() if a.out else folder / "reel.mp4"
     work = pathlib.Path(tempfile.mkdtemp())

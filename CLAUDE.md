@@ -195,7 +195,7 @@ posts/YYYY-MM-DD/          ← 발행일(한국 날짜)
 1. 카드와 sources.md를 먼저 완성한다. 릴스의 숫자·사실은 **카드에 들어간 것만** 쓴다(새 숫자 금지).
 2. 위 '플롯 고르기'로 오늘 플롯을 정한다.
 3. 예시가 있으면 참고하고(좌표를 그대로 두고 글자만 바꾸지 않는다), 없으면 `news` 예시의 구조·부품을 바탕으로 새로 짠다. `posts/<오늘>/reel/scenes.py`에 S(장면), PLAN(길이·배속), CUES(효과음)를 쓴다. 부품은 `reel/lib.py`, 캐릭터는 `reel/chars.py`.
-4. `python3 reel/make_reel.py posts/<오늘> --sheet /tmp/reel_sheet.jpg` → `posts/<오늘>/reel.mp4` (약 3분). 장면별 정지 화면 시트도 만든다(아침 보고용).
+4. `python3 reel/make_reel.py posts/<오늘> --sheet /tmp/reel_sheet.jpg --stills /tmp/reel_stills.jpg` → `posts/<오늘>/reel.mp4` (약 3분). reel_sheet는 검수용(인스타 UI 자리 표시), reel_stills는 사용자 보고용 깨끗한 정지 화면.
 5. /tmp/reel_sheet.jpg를 직접 열어 확인한다: 첫 프레임 훅, 정렬, 글자 겹침·넘침·잘림, 캐릭터가 컷 밖으로 잘림, 분홍 영역(인스타 UI)에 내용이 들어감 → 고쳐서 다시 만든다.
 6. 영상 프레임 몇 장(0초 포함)을 뽑아(ffmpeg -ss) 확인한다.
 7. `reel_caption.txt`를 쓰고, `reel/history.md` 맨 아래에 오늘 줄을 추가한다. 검수에서 문제가 나오면 고쳐서 다시 만든다. 시간이 걸려도 포기하지 않는다.
