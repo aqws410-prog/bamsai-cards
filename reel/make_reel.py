@@ -4,7 +4,7 @@
 사용법:
   python3 reel/make_reel.py posts/2026-10-15                # posts/2026-10-15/reel/scenes.py → posts/2026-10-15/reel.mp4
   python3 reel/make_reel.py posts/2026-10-15 --sheet /tmp/reel_sheet.jpg   # + 인스타 UI를 얹은 검수용 미리보기
-  python3 reel/make_reel.py reel/example --out /tmp/example.mp4            # 예시 다시 만들기
+  python3 reel/make_reel.py reel/formats/news --out /tmp/news.mp4          # 형식 예시 다시 만들기
 
 scenes.py 가 정의할 것: S[n] = (아무 숫자, page(...)), PLAN[n] = (화면 길이 초, 재생 배속), CUES = [(장면, 시각, 효과음, 볼륨), ...]
 - 장면 길이 합계에서 전환(0.25초 × 장면 수-1)을 뺀 것이 영상 길이.
