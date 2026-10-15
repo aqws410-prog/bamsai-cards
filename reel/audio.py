@@ -150,6 +150,65 @@ def sfx_jingle():     # 팔로우 마무리 징글
         j = int(st*SR); out[j:j+len(s)] += s
     return norm(out, .5)
 
+def sfx_news():        # 뉴스 시그널 (빰-빠밤!)
+    out = np.zeros(int(1.3*SR))
+    for st, ms, d in [(0, (67, 71, 74), .16), (.18, (67, 71, 74), .12), (.34, (72, 76, 79, 84), .9)]:
+        t = t_(d); s = np.zeros(len(t))
+        for m in ms:
+            f = mtof(m); s += sum(np.sin(2*np.pi*f*h*t)/h**1.1 for h in range(1, 7))
+        s = lp(s, 4200) * adsr(len(t), .01, .08, .7, .12)
+        j = int(st*SR); out[j:j+len(s)] += s
+    return norm(out, .55)
+def sfx_correct():     # 딩동댕
+    out = np.zeros(int(1.2*SR))
+    for i, m in enumerate([72, 76, 79]):
+        d = .7; t = t_(d); s = (np.sin(2*np.pi*mtof(m)*t) + .3*np.sin(2*np.pi*mtof(m)*2*t)) * np.exp(-t*5)
+        j = int(i*.17*SR); out[j:j+len(s)] += s[:len(out)-j]
+    return norm(out, .5)
+def sfx_wrong():       # 삐빅 (오답)
+    d = .45; t = t_(d)
+    s = np.sign(np.sin(2*np.pi*150*t)) * .5 + np.sign(np.sin(2*np.pi*157*t)) * .5
+    s *= (np.sin(2*np.pi*7*t) > -.3)
+    return norm(lp(s, 1800) * adsr(len(t), .005, .05, .9, .05), .35)
+def sfx_msg():         # 메신저 알림 띵동
+    out = np.zeros(int(.5*SR))
+    for st, m in [(0, 88), (.09, 93)]:
+        d = .35; t = t_(d); s = np.sin(2*np.pi*mtof(m)*t) * np.exp(-t*14)
+        j = int(st*SR); out[j:j+len(s)] += s[:len(out)-j]
+    return norm(out, .4)
+def sfx_typing(d=.8):  # 타닥타닥
+    out = np.zeros(int(d*SR))
+    for k in np.arange(0, d - .05, .085):
+        n = int(.025*SR); s = hp(rng.standard_normal(n), 2500) * np.exp(-t_(.025)*220)
+        j = int((k + rng.uniform(0, .02))*SR); out[j:j+n] += s * rng.uniform(.5, 1)
+    return norm(out, .25)
+def sfx_drumroll(d=1.2):  # 두구두구
+    out = np.zeros(int(d*SR)); t0 = t_(d)
+    for k in np.arange(0, d, .045):
+        n = int(.06*SR); tt = t_(.06)
+        s = (np.sin(2*np.pi*190*tt) * .5 + bp(rng.standard_normal(n), 200, 3000)) * np.exp(-tt*50)
+        j = int(k*SR); out[j:j+n] += s[:len(out)-j] * (.4 + .6*k/d)
+    return norm(out, .4)
+def sfx_reveal():      # 짜잔! (공개)
+    d = 1.0; t = t_(d)
+    cym = hp(rng.standard_normal(len(t)), 5000) * np.exp(-t*4)
+    ch = sum(np.sin(2*np.pi*mtof(m)*t) for m in (60, 64, 67, 72)) * np.exp(-t*3)
+    return norm(cym*.5 + ch*.5, .55)
+def sfx_shutter():     # 찰칵
+    out = np.zeros(int(.25*SR))
+    for st in (0, .07):
+        n = int(.04*SR); s = bp(rng.standard_normal(n), 1500, 6000) * np.exp(-t_(.04)*120)
+        j = int(st*SR); out[j:j+n] += s
+    return norm(out, .45)
+def sfx_tension():     # 띠용띠용 (긴장)
+    d = .9; t = t_(d)
+    f = 220 * (1 + .06*np.sin(2*np.pi*9*t))
+    s = sum(np.sin(2*np.pi*np.cumsum(f*h)/SR)/h for h in (1, 2, 3))
+    return norm(lp(s, 1500) * adsr(len(t), .05, .1, .8, .2), .3)
+def sfx_rain():        # 빗소리 (짧게)
+    d = 1.2; n = rng.standard_normal(int(d*SR))
+    return norm(bp(n, 1200, 6000) * np.sin(np.pi*t_(d)/d)**.6, .22)
+
 SFX = {k[4:]: v for k, v in globals().items() if k.startswith("sfx_")}
 
 # ─────────────── 밤사이 테마 (오리지널) ───────────────
