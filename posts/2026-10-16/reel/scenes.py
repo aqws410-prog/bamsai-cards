@@ -1,4 +1,4 @@
-"""형식: 밤사이 탐정 추리 (검수 전 · 2026-10-16 처음 제작) — 밤톨이 탐정, 별콩이 의뢰인, 솜부엉 조수.
+"""형식: 밤사이 탐정 추리 (검수 전 · 2026-10-16 처음 제작, 같은 날 피드백으로 장면 1 훅을 탐정 전용 레이아웃으로 교체) — 밤톨이 탐정, 별콩이 의뢰인, 솜부엉 조수.
 내용: 2026-10-16 (코스피 15일 ▼7.57% · 미국 3대 지수 상승, AI → 헬스케어 갈아타기). 비유: 놀이공원 롤러코스터 줄 → 회전목마 줄.
 """
 from lib import *
@@ -6,19 +6,27 @@ from lib import *
 S = {}
 RED, BLUE = "#E03131", "#2F6BD8"
 
-# 1 ── 사건 발생 (훅) — 첫 프레임부터 배너·질문·탐정 클로즈업
+# 1 ── 사건 발생 (훅) — 탐정 시그니처: 사선 폴리스 라인 + 사건 파일 폴더 + 스포트라이트 속 탐정 클로즈업
+#      (뉴스 속보 장면 1의 '배너 → 헤드라인 2줄 → 캐릭터 컷 → 티커' 구조를 쓰지 않는다)
+TAPE = "사건 현장 · 출입 금지 · 밤사이 탐정 · " * 4
 S[1] = (1, page(f'''
-{stars(22, 31, 0, 600)}
+{stars(16, 31, 0, 400)}
+<div class="abs" style="left:-120px;top:780px;width:1320px;height:1100px;background:radial-gradient(circle at 30% 50%,rgba(255,236,170,.30) 0,rgba(255,236,170,.10) 22%,transparent 40%)"></div>
 {head("밤사이 탐정 · 10.16 FRI", 1, "#F6EEE4")}
-{alert_banner("미스터리 사건")}
-<div class="abs hook" style="left:44px;top:330px;font-size:80px;color:#F6EEE4">코스피는 <span style="color:#7DBBFF">▼7.57%</span>인데</div>
-<div class="abs hook" style="left:44px;top:430px;font-size:108px;color:#FFC08A">미국은 왜 올랐지?!</div>
-<div class="panel" style="left:44px;top:640px;width:982px;height:700px;background:#3C4485;overflow:hidden">
-  <div class="abs" style="left:{P}px;top:60px;width:540px;animation:zoomIn .6s cubic-bezier(.2,.9,.3,1) both"><div class="squish">{mascot("bamtol", "surprised", "hold", p_mag())}</div></div>
-  <div class="abs" style="left:0;right:0;top:560px;height:140px;background:#5B5FA8;border-top:6px solid {L};text-align:center;color:#FFE59A;font-size:50px;line-height:130px">🔍 밤사이 탐정 사무소</div>
-  {bub("<span style='font-size:50px'>사건입니다!</span><br>코스피가 무너진 날,<br>미국은 <b>3대 지수 상승</b>", 560, 90, .2, "t-left", style="font-size:40px;padding:22px 30px")}
+<div class="abs" style="left:-80px;top:250px;width:1240px;height:86px;background:repeating-linear-gradient(135deg,#FFD84D 0 46px,#2A2A2A 46px 64px);border-top:6px solid {L};border-bottom:6px solid {L};transform:rotate(-3deg);overflow:hidden;box-shadow:0 8px 0 rgba(0,0,0,.25)">
+  <div style="position:absolute;left:0;right:0;top:12px;height:56px;background:#FFD84D;font-size:44px;line-height:56px;white-space:nowrap;padding-left:30px">{TAPE}</div></div>
+<div class="abs" style="left:44px;top:440px;width:360px;height:70px;background:#D9B06A;border:5px solid {L};border-bottom:none;border-radius:20px 20px 0 0;font-size:36px;line-height:66px;text-align:center">사건 파일 No.1016</div>
+<div class="abs" style="left:44px;top:504px;width:982px;height:500px;box-sizing:border-box;background:#E9C98A;border:5px solid {L};border-radius:0 26px 26px 26px;box-shadow:0 8px 0 rgba(0,0,0,.22)">
+  <div class="abs" style="left:{P}px;top:34px;font-family:Noto Sans CJK KR,sans-serif;font-size:28px;color:#6B4A2A">의뢰인: 코스피 · 사건: 15일 하루 ▼7.57%</div>
+  <div class="abs hook" style="left:{P}px;top:100px;font-size:96px;color:#2B2140">미국은<br>왜 올랐을까?</div>
+  <div class="abs" style="left:{P}px;top:350px;font-size:44px;color:#5A3A1A">코스피가 무너진 바로 그 밤</div>
+  <div class="abs" style="left:620px;top:80px;width:300px;transform:rotate(5deg)"><div class="pola" style="position:relative"><div class="pin"></div>
+    <div style="height:200px;background:#E7ECFA;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:34px">코스피 (15일)</div><div style="font-size:84px;color:#2F6BD8">▼7.57%</div></div>
+    <div style="margin-top:4px">증거물 1</div></div></div>
 </div>
-{ticker("다우 ▲1.08% · S&P500 ▲0.33% · 나스닥 ▲0.08% · 코스피(15일) ▼7.57%", 1380, "사건")}
+<div class="abs" style="left:20px;top:1070px;width:500px;animation:zoomIn .6s cubic-bezier(.2,.9,.3,1) both"><div class="squish">{mascot("bamtol", "surprised", "hold", p_mag())}</div></div>
+{bub("<span style='font-size:50px'>사건 접수!</span><br>그날 밤 미국은<br><b>3대 지수 모두 상승</b>", 540, 1120, .2, "t-left", style="font-size:40px;padding:22px 30px")}
+<div class="abs a-stamp" style="left:560px;top:1420px;--d:.6s;--r:-5deg;background:#fff;border:5px solid {L};border-radius:16px;padding:8px 22px;font-size:40px;box-shadow:0 6px 0 rgba(0,0,0,.2)">증거 2 · 다우 <span style="color:#E03131">▲1.08%</span></div>
 ''', "#262B55"))
 
 # 2 ── 용의자 셋 (코르크 보드)
@@ -114,7 +122,7 @@ S[6] = (1, page(f'''
 
 PLAN = {1: (2.9, 1.3), 2: (4.0, 1.6), 3: (4.6, 1.6), 4: (3.8, 1.6), 5: (4.1, 1.7), 6: (3.2, 1.2)}
 CUES = [
- (1, .0, "dundun", 1), (1, .0, "tension", .7), (1, .02, "whoosh", .4), (1, .2, "pop", .9), (1, .6, "question", .6),
+ (1, .0, "dundun", 1), (1, .0, "tension", .7), (1, .02, "whoosh", .4), (1, .2, "pop", .9), (1, .6, "thud", .7), (1, .7, "question", .5),
  (2, .1, "whoosh", .5), (2, .3, "pop", .8), (2, .9, "shutter", .7), (2, 1.3, "shutter", .7), (2, 1.7, "shutter", .7), (2, 2.2, "whoosh", .5), (2, 2.5, "pop", .7),
  (3, .25, "pop", .8), (3, .6, "pop", .6), (3, .9, "pop", .6), (3, 1.3, "whoosh", .6), (3, 1.8, "thud", 1), (3, 1.8, "reveal", .8), (3, 2.4, "tick", 1), (3, 3.0, "ding", .8), (3, 3.3, "ding", .6),
  (4, .3, "whoosh", .6), (4, .6, "pop", .8), (4, .7, "sad", .5), (4, 1.3, "pop", .8), (4, 2.3, "blip_down", 1), (4, 2.6, "pop", .6),

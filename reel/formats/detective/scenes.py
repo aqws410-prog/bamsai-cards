@@ -11,22 +11,22 @@ RED, BLUE = "#E03131", "#2F6BD8"
 TAPE = "사건 현장 · 출입 금지 · 밤사이 탐정 · " * 4
 S[1] = (1, page(f'''
 {stars(16, 31, 0, 400)}
-<div class="abs" style="left:-120px;top:520px;width:1320px;height:1100px;background:radial-gradient(circle at 30% 50%,rgba(255,236,170,.30) 0,rgba(255,236,170,.10) 22%,transparent 40%)"></div>
+<div class="abs" style="left:-120px;top:780px;width:1320px;height:1100px;background:radial-gradient(circle at 30% 50%,rgba(255,236,170,.30) 0,rgba(255,236,170,.10) 22%,transparent 40%)"></div>
 {head("밤사이 탐정 · 10.16 FRI", 1, "#F6EEE4")}
-<div class="abs" style="left:-80px;top:196px;width:1240px;height:86px;background:repeating-linear-gradient(135deg,#FFD84D 0 46px,#2A2A2A 46px 64px);border-top:6px solid {L};border-bottom:6px solid {L};transform:rotate(-4deg);overflow:hidden;box-shadow:0 8px 0 rgba(0,0,0,.25)">
+<div class="abs" style="left:-80px;top:250px;width:1240px;height:86px;background:repeating-linear-gradient(135deg,#FFD84D 0 46px,#2A2A2A 46px 64px);border-top:6px solid {L};border-bottom:6px solid {L};transform:rotate(-3deg);overflow:hidden;box-shadow:0 8px 0 rgba(0,0,0,.25)">
   <div style="position:absolute;left:0;right:0;top:12px;height:56px;background:#FFD84D;font-size:44px;line-height:56px;white-space:nowrap;padding-left:30px">{TAPE}</div></div>
-<div class="abs" style="left:44px;top:322px;width:360px;height:70px;background:#D9B06A;border:5px solid {L};border-bottom:none;border-radius:20px 20px 0 0;font-size:36px;line-height:66px;text-align:center">사건 파일 No.1016</div>
-<div class="abs" style="left:44px;top:386px;width:982px;height:520px;box-sizing:border-box;background:#E9C98A;border:5px solid {L};border-radius:0 26px 26px 26px;box-shadow:0 8px 0 rgba(0,0,0,.22)">
+<div class="abs" style="left:44px;top:440px;width:360px;height:70px;background:#D9B06A;border:5px solid {L};border-bottom:none;border-radius:20px 20px 0 0;font-size:36px;line-height:66px;text-align:center">사건 파일 No.1016</div>
+<div class="abs" style="left:44px;top:504px;width:982px;height:500px;box-sizing:border-box;background:#E9C98A;border:5px solid {L};border-radius:0 26px 26px 26px;box-shadow:0 8px 0 rgba(0,0,0,.22)">
   <div class="abs" style="left:{P}px;top:34px;font-family:Noto Sans CJK KR,sans-serif;font-size:28px;color:#6B4A2A">의뢰인: 코스피 · 사건: 15일 하루 ▼7.57%</div>
   <div class="abs hook" style="left:{P}px;top:100px;font-size:96px;color:#2B2140">미국은<br>왜 올랐을까?</div>
-  <div class="abs" style="left:{P}px;top:360px;font-size:44px;color:#5A3A1A">코스피가 무너진 바로 그 밤</div>
-  <div class="abs" style="left:620px;top:70px;width:300px;transform:rotate(5deg)"><div class="pola" style="position:relative"><div class="pin"></div>
+  <div class="abs" style="left:{P}px;top:350px;font-size:44px;color:#5A3A1A">코스피가 무너진 바로 그 밤</div>
+  <div class="abs" style="left:620px;top:80px;width:300px;transform:rotate(5deg)"><div class="pola" style="position:relative"><div class="pin"></div>
     <div style="height:200px;background:#E7ECFA;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:34px">코스피 (15일)</div><div style="font-size:84px;color:#2F6BD8">▼7.57%</div></div>
     <div style="margin-top:4px">증거물 1</div></div></div>
 </div>
-<div class="abs" style="left:10px;top:900px;width:520px;animation:zoomIn .6s cubic-bezier(.2,.9,.3,1) both"><div class="squish">{mascot("bamtol", "surprised", "hold", p_mag())}</div></div>
-{bub("<span style='font-size:50px'>사건 접수!</span><br>그날 밤 미국은<br><b>3대 지수 모두 상승</b>", 540, 960, .2, "t-left", style="font-size:40px;padding:22px 30px")}
-<div class="abs a-stamp" style="left:560px;top:1250px;--d:.6s;--r:-5deg;background:#fff;border:5px solid {L};border-radius:16px;padding:8px 22px;font-size:40px;box-shadow:0 6px 0 rgba(0,0,0,.2)">증거 2 · 다우 <span style="color:#E03131">▲1.08%</span></div>
+<div class="abs" style="left:20px;top:1070px;width:500px;animation:zoomIn .6s cubic-bezier(.2,.9,.3,1) both"><div class="squish">{mascot("bamtol", "surprised", "hold", p_mag())}</div></div>
+{bub("<span style='font-size:50px'>사건 접수!</span><br>그날 밤 미국은<br><b>3대 지수 모두 상승</b>", 540, 1120, .2, "t-left", style="font-size:40px;padding:22px 30px")}
+<div class="abs a-stamp" style="left:560px;top:1420px;--d:.6s;--r:-5deg;background:#fff;border:5px solid {L};border-radius:16px;padding:8px 22px;font-size:40px;box-shadow:0 6px 0 rgba(0,0,0,.2)">증거 2 · 다우 <span style="color:#E03131">▲1.08%</span></div>
 ''', "#262B55"))
 
 # 2 ── 용의자 셋 (코르크 보드)
