@@ -209,6 +209,14 @@ def sfx_rain():        # 빗소리 (짧게)
     d = 1.2; n = rng.standard_normal(int(d*SR))
     return norm(bp(n, 1200, 6000) * np.sin(np.pi*t_(d)/d)**.6, .22)
 
+def sfx_beep():        # 삐-삐- (병원 심박 모니터, 병원 진료 플롯 시그니처)
+    out = np.zeros(int(.9*SR))
+    for st in (0, .42):
+        d = .16; t = t_(d)
+        s = (np.sin(2*np.pi*1000*t) + .25*np.sin(2*np.pi*2000*t)) * adsr(len(t), .004, .02, .85, .03)
+        j = int(st*SR); out[j:j+len(s)] += s
+    return norm(out, .32)
+
 SFX = {k[4:]: v for k, v in globals().items() if k.startswith("sfx_")}
 
 # ─────────────── 밤사이 테마 (오리지널) ───────────────
