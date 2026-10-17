@@ -217,6 +217,20 @@ def sfx_beep():        # 삐-삐- (병원 심박 모니터, 병원 진료 플롯
         j = int(st*SR); out[j:j+len(s)] += s
     return norm(out, .32)
 
+def sfx_thunder():     # 우르릉 쾅! (일기예보 플롯 — 번개)
+    d = 1.3; t = t_(d); n = rng.standard_normal(len(t))
+    crack = hp(n, 1800) * np.exp(-t*28) * .9
+    rumble = lp(n, 160, 3) * (np.exp(-t*2.2) * (1 - np.exp(-t*30)))
+    rumble *= 1 + .5*np.sin(2*np.pi*5*t)
+    return norm(crack + rumble*3.5, .55)
+def sfx_forecast():    # 띵-띵-띠링 (일기예보 플롯 시그니처 차임)
+    out = np.zeros(int(.95*SR))
+    for st, m in ((0, 84), (.16, 88), (.32, 91), (.32, 96)):
+        d = .55; t = t_(d); f = mtof(m)
+        s = (np.sin(2*np.pi*f*t) + .3*np.sin(2*np.pi*2*f*t)) * env(len(t), .003, d, 5)
+        j = int(st*SR); out[j:j+len(s)] += s
+    return norm(out, .38)
+
 SFX = {k[4:]: v for k, v in globals().items() if k.startswith("sfx_")}
 
 # ─────────────── 밤사이 테마 (오리지널) ───────────────
