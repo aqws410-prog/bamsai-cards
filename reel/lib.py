@@ -64,6 +64,11 @@ body{{width:1080px;height:1920px;overflow:hidden;word-break:keep-all;font-family
 .shiver{{animation:shiver .35s ease-in-out infinite}}
 .jog{{animation:jog .35s ease-in-out infinite}}
 .star{{animation:twinkle 2.4s ease-in-out infinite}}
+@keyframes punch{{0%{{transform:scale(1)}}12%{{transform:scale(1.15)}}24%{{transform:scale(.96)}}34%{{transform:scale(1.04)}}46%,100%{{transform:scale(1)}}}}
+@keyframes jolt{{0%,100%{{transform:translateX(0)}}20%{{transform:translateX(-16px)}}40%{{transform:translateX(14px)}}60%{{transform:translateX(-9px)}}80%{{transform:translateX(5px)}}}}
+@keyframes thump{{0%,100%{{transform:scale(1)}}10%{{transform:scale(1.08)}}22%{{transform:scale(1)}}}}
+.punch{{display:inline-block;transform-origin:50% 60%;animation:punch 1.1s ease-out var(--d,0s) both, jolt .45s ease-out calc(var(--d,0s) + .05s) both}}
+.thump{{display:inline-block;transform-origin:50% 60%;animation:thump .9s ease-out var(--d,0s) infinite}}
 """
 
 def page(body, bg):
