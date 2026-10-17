@@ -8,11 +8,11 @@ S = {}
 RED, BLUE = "#E03131", "#2F6BD8"
 GREEN = "#2FA36B"
 
-# 청진기 (캐릭터 좌표계 소품)
-STETH = (f'<path d="M112 222 Q108 268 150 274 Q192 268 188 222" fill="none" stroke="#5B6B8C" stroke-width="7" stroke-linecap="round"/>'
-         f'<circle cx="112" cy="220" r="6" fill="#5B6B8C"/><circle cx="188" cy="220" r="6" fill="#5B6B8C"/>'
-         f'<path d="M150 274 L150 292" stroke="#5B6B8C" stroke-width="7" stroke-linecap="round"/>'
-         f'<circle cx="150" cy="300" r="14" fill="#C9D3E6" stroke="{L}" stroke-width="4"/>')
+# 청진기 (캐릭터 좌표계 소품) — 목에 건 모양. 눈(y≈206)·입(y≈230) 아래에만 그린다
+STETH = (f'<path d="M80 236 Q150 286 220 236" fill="none" stroke="#5B6B8C" stroke-width="7" stroke-linecap="round"/>'
+         f'<path d="M80 236 Q74 224 82 216 M220 236 Q226 224 218 216" fill="none" stroke="#5B6B8C" stroke-width="6" stroke-linecap="round"/>'
+         f'<path d="M196 254 Q206 266 204 276" fill="none" stroke="#5B6B8C" stroke-width="7" stroke-linecap="round"/>'
+         f'<circle cx="204" cy="284" r="12" fill="#C9D3E6" stroke="{L}" stroke-width="4"/>')
 # 머리 거울 (의사 표시)
 MIRROR = f'<circle cx="150" cy="118" r="20" fill="#E8F1FF" stroke="{L}" stroke-width="4"/><circle cx="150" cy="118" r="7" fill="#9FB7E0"/>'
 
