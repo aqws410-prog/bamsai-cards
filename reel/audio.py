@@ -231,6 +231,19 @@ def sfx_forecast():    # 띵-띵-띠링 (일기예보 플롯 시그니처 차임
         j = int(st*SR); out[j:j+len(s)] += s
     return norm(out, .38)
 
+def sfx_whistle():     # 삐익-삑! 호루라기 (스포츠 중계 플롯 시그니처)
+    out = np.zeros(int(.75*SR))
+    for st, d in ((0, .34), (.42, .2)):
+        t = t_(d); f = 2900 * (1 + .035*np.sin(2*np.pi*38*t))
+        s = (np.sin(2*np.pi*np.cumsum(f)/SR) + .3*bp(rng.standard_normal(len(t)), 2500, 4200)) * adsr(len(t), .01, .03, .9, .04)
+        j = int(st*SR); out[j:j+len(s)] += s
+    return norm(out, .3)
+def sfx_cheer():       # 와아아~ 관중 함성 (스포츠 중계 플롯)
+    d = 1.4; t = t_(d); n = rng.standard_normal(len(t))
+    crowd = bp(n, 350, 2400, 2) * (1 + .35*np.sin(2*np.pi*3.3*t) * np.sin(2*np.pi*.9*t))
+    sh = np.minimum(1, t/.15) * np.exp(-np.maximum(0, t-.5)*2.2)
+    return norm(crowd * sh, .3)
+
 SFX = {k[4:]: v for k, v in globals().items() if k.startswith("sfx_")}
 
 # ─────────────── 밤사이 테마 (오리지널) ───────────────
