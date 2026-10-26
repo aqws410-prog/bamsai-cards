@@ -244,6 +244,18 @@ def sfx_cheer():       # 와아아~ 관중 함성 (스포츠 중계 플롯)
     sh = np.minimum(1, t/.15) * np.exp(-np.maximum(0, t-.5)*2.2)
     return norm(crowd * sh, .3)
 
+def sfx_scan():        # 삑! 바코드 스캔 (택배 추적 플롯 시그니처)
+    d = .14; t = t_(d)
+    s = (np.sin(2*np.pi*1850*t) + .2*np.sin(2*np.pi*3700*t)) * adsr(len(t), .002, .01, .9, .02)
+    return norm(s, .34)
+def sfx_honk():        # 빵빵! 트럭 경적 (택배 추적 플롯)
+    out = np.zeros(int(.55*SR))
+    for st in (0, .24):
+        d = .18; t = t_(d)
+        s = sum(np.sign(np.sin(2*np.pi*f*t)) for f in (330, 415)) * adsr(len(t), .005, .03, .9, .03)
+        j = int(st*SR); out[j:j+len(s)] += lp(s, 2200)
+    return norm(out, .3)
+
 SFX = {k[4:]: v for k, v in globals().items() if k.startswith("sfx_")}
 
 # ─────────────── 밤사이 테마 (오리지널) ───────────────
