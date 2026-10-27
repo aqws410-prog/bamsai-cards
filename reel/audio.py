@@ -256,6 +256,15 @@ def sfx_honk():        # 빵빵! 트럭 경적 (택배 추적 플롯)
         j = int(st*SR); out[j:j+len(s)] += lp(s, 2200)
     return norm(out, .3)
 
+def sfx_sizzle():      # 지글지글 (요리 레시피 플롯 시그니처)
+    d = .7; t = t_(d); n = rng.standard_normal(len(t))
+    hiss = bp(n, 2500, 7000, 2) * (.55 + .45*np.abs(np.sin(2*np.pi*11*t)))
+    pops = np.zeros(len(t))
+    for st in rng.uniform(0, d-.03, 14):
+        j = int(st*SR); k = min(len(t)-j, int(.012*SR)); pops[j:j+k] += rng.standard_normal(k) * np.exp(-np.arange(k)/(.002*SR))
+    sh = np.minimum(1, t/.03) * np.exp(-np.maximum(0, t-.35)*5)
+    return norm((hiss*.6 + bp(pops, 1500, 8000)) * sh, .3)
+
 SFX = {k[4:]: v for k, v in globals().items() if k.startswith("sfx_")}
 
 # ─────────────── 밤사이 테마 (오리지널) ───────────────
