@@ -265,6 +265,19 @@ def sfx_sizzle():      # 지글지글 (요리 레시피 플롯 시그니처)
     sh = np.minimum(1, t/.03) * np.exp(-np.maximum(0, t-.35)*5)
     return norm((hiss*.6 + bp(pops, 1500, 8000)) * sh, .3)
 
+def sfx_applause():    # 짝짝짝 방청객 박수 (토크쇼 플롯 시그니처)
+    d = 1.3; n_ = int(d*SR); out = np.zeros(n_)
+    for st in rng.uniform(0, d-.05, 90):
+        j = int(st*SR); k = min(n_-j, int(.03*SR))
+        out[j:j+k] += rng.standard_normal(k) * np.exp(-np.arange(k)/(.004*SR)) * rng.uniform(.4, 1)
+    t = t_(d)[:n_]
+    sh = np.minimum(1, t/.08) * np.exp(-np.maximum(0, t-.7)*4)
+    return norm(bp(out, 700, 6000) * sh, .3)
+def sfx_mic():         # 뚱- 마이크 켜짐 (토크쇼 플롯)
+    d = .35; t = t_(d)
+    s = (np.sin(2*np.pi*90*t) + .4*np.sin(2*np.pi*180*t)) * np.exp(-t*9) + .15*bp(rng.standard_normal(len(t)), 2000, 5000) * np.exp(-t*30)
+    return norm(s, .32)
+
 SFX = {k[4:]: v for k, v in globals().items() if k.startswith("sfx_")}
 
 # ─────────────── 밤사이 테마 (오리지널) ───────────────
