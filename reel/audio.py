@@ -278,6 +278,20 @@ def sfx_mic():         # 뚱- 마이크 켜짐 (토크쇼 플롯)
     s = (np.sin(2*np.pi*90*t) + .4*np.sin(2*np.pi*180*t)) * np.exp(-t*9) + .15*bp(rng.standard_normal(len(t)), 2000, 5000) * np.exp(-t*30)
     return norm(s, .32)
 
+def sfx_ring():        # 따르릉 따르릉 주문 전화벨 (홈쇼핑 플롯 시그니처)
+    out = np.zeros(int(.9*SR))
+    for st in (0, .45):
+        d = .32; t = t_(d)
+        trem = (np.sign(np.sin(2*np.pi*22*t)) + 1) / 2
+        s = (np.sin(2*np.pi*1320*t) + .6*np.sin(2*np.pi*1580*t)) * (.35 + .65*trem) * adsr(len(t), .004, .03, .85, .04)
+        j = int(st*SR); out[j:j+len(s)] += lp(s, 4500)
+    return norm(out, .3)
+def sfx_chaching():    # 촤랑! 계산대 (홈쇼핑 플롯 — 주문 확정)
+    d = .6; t = t_(d)
+    bell = sum(np.sin(2*np.pi*f*t) * np.exp(-t*k) for f, k in ((2093, 7), (2637, 8), (3136, 9)))
+    clk = bp(rng.standard_normal(len(t)), 1500, 6000) * np.exp(-t*60)
+    return norm(bell*.7 + clk*.5, .32)
+
 SFX = {k[4:]: v for k, v in globals().items() if k.startswith("sfx_")}
 
 # ─────────────── 밤사이 테마 (오리지널) ───────────────
